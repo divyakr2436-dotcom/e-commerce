@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food Shop</title>
+</head>
+<body>
+    <h1>Food Menu</h1>
+    <a href="/add">Add Product</a>
+    <ul>
+    {% for p in products %}
+        <li>
+            <img src="{{p[3]}}" width="100"><br>
+            {{p[1]}} - ₹{{p[2]}}
+            <br>
+            <a href="/order/{{p[0]}}">Order</a>
+            <a href="/delete/{{p[0]}}">Delete</a>
+        </li>
+    {% endfor %}
+    </ul>
+</body>
+</html>
