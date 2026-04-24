@@ -3,8 +3,6 @@ import sqlite3
 
 app = Flask(name)
 
-Initialize database
-
 conn = sqlite3.connect('shop.db') c = conn.cursor() c.execute('''CREATE TABLE IF NOT EXISTS products ( id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, price INTEGER, image TEXT )''') conn.commit() conn.close()
 
 @app.route('/') def home(): conn = sqlite3.connect('shop.db') c = conn.cursor() c.execute('SELECT * FROM products') products = c.fetchall() conn.close() return render_template('home.html', products=products)
@@ -30,50 +28,5 @@ return redirect(f"https://wa.me/{phone}?text={message}")
 
 if name == 'main': app.run(debug=True)
 
----------- HTML FILES ----------
 
-Create a folder called templates and add below files
 
-home.html
-
-"""
-
-<!DOCTYPE html><html>
-<head>
-    <title>Food Shop</title>
-</head>
-<body>
-    <h1>Food Menu</h1>
-    <a href="/add">Add Product</a>
-    <ul>
-    {% for p in products %}
-        <li>
-            <img src="{{p[3]}}" width="100"><br>
-            {{p[1]}} - ₹{{p[2]}}
-            <br>
-            <a href="/order/{{p[0]}}">Order</a>
-            <a href="/delete/{{p[0]}}">Delete</a>
-        </li>
-    {% endfor %}
-    </ul>
-</body>
-</html>
-"""add.html
-
-"""
-
-<!DOCTYPE html><html>
-<head>
-    <title>Add Product</title>
-</head>
-<body>
-    <h1>Add Food Item</h1>
-    <form method="post">
-        Name: <input type="text" name="name"><br>
-        Price: <input type="number" name="price"><br>
-        Image URL: <input type="text" name="image"><br>
-        <button type="submit">Add</button>
-    </form>
-</body>
-</html>
-"""
